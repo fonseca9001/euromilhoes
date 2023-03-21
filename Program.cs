@@ -54,6 +54,7 @@ namespace euromilhoes
             ArrayList winKeys = new ArrayList();
             ArrayList winStars = new ArrayList();
 
+            Prints.printLogo();
             //   Gerar os números
             for (int i = 0; i < 5; i++)
             {
@@ -169,7 +170,7 @@ namespace euromilhoes
             }
             checkNif();
 
-            float aposta = 2,5;
+            float aposta = 2.5f; //o ponto decimal nao pode ser virgula, tambem tem de declarar como literal
             float saldo = 100;
             int qtd;
             Console.WriteLine("Quantas chaves quer jogar? ");
