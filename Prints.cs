@@ -5,9 +5,9 @@ using System.Text.RegularExpressions;
 
 namespace euromilhoes
 {
-    class Prints
+    static class Prints
     {
-        void printLogo()
+        public static void printLogo()
         {
             string asciiArt = @"
                 ______                           _ ____
@@ -19,13 +19,13 @@ namespace euromilhoes
             
             Console.WriteLine(asciiArt);
         }
-        void printMenu()
+        public static void printMenu()
         {
             Console.WriteLine("1 - Gerar chave");
             Console.WriteLine("2 - Verificar chave");
             Console.WriteLine("3 - Sair");
         }
-        void printStatus()
+        public static void printStatus()
         {
             Console.WriteLine("");
         }
