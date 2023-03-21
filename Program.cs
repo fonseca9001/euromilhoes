@@ -168,6 +168,21 @@ namespace euromilhoes
                 checkNum.Add(input);
             }
             checkNif();
+
+            float aposta = 2,5;
+            float saldo = 100;
+            int qtd;
+            Console.WriteLine("Quantas chaves quer jogar? ");
+            do
+            {
+                
+                qtd = int.Parse(Console.ReadLine());
+                saldo -= qtd * aposta;
+                if (aposta > saldo)
+                    Console.WriteLine("Não tem saldo suficiente! Tente outra vez");
+                else
+                    break;
+            } while (saldo > aposta);
         }
     }
 }
