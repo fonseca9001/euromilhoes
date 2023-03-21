@@ -1,8 +1,12 @@
 ﻿using System;
-
-public class Class1
+namespace euromilhoes
 {
-	public Class1()
-	{
-	}
+    static class Functions
+    {
+        static void checkNif()
+        {
+
+        
+        }
+    }
 }
