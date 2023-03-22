@@ -2,12 +2,14 @@
 using System;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 
 namespace euromilhoes
 {
     internal class Program
     {
+        //   Verificar se o NIF é válido
         static void checkNif()
         {
             int nif;
@@ -46,6 +48,44 @@ namespace euromilhoes
             }
         }
 
+        ///   Gerar os números da chave vencedora automaticamente
+        static void genTicket()
+        {
+            Random rnd = new Random();
+            Ticket t1 = new Ticket();
+
+            while (t1.MainNumbers.Count < 5)
+            {
+                var number = rnd.Next(1, 51);
+                if (!t1.MainNumbers.Contains(number))
+                {
+                    t1.MainNumbers.Add(number);
+                }
+            }
+
+            foreach (int c in t1.MainNumbers)
+            {
+                Console.WriteLine(c);
+            }
+
+            Console.WriteLine("\n");
+
+            while (t1.LuckyStars.Count < 2)
+            {
+                var number = rnd.Next(1, 13);
+                if (!t1.LuckyStars.Contains(number))
+                {
+                    t1.LuckyStars.Add(number);
+                }
+            }
+
+            foreach (int c in t1.LuckyStars)
+            {
+                Console.WriteLine(c);
+            }
+        }
+
+        
         static void Main(string[] args)
         {
             Random rnd = new Random();
@@ -54,7 +94,7 @@ namespace euromilhoes
             ArrayList winKeys = new ArrayList();
             ArrayList winStars = new ArrayList();
 
-            Prints.printLogo();
+            //Prints.printLogo();
             //   Gerar os números
             for (int i = 0; i < 5; i++)
             {
@@ -100,8 +140,7 @@ namespace euromilhoes
             {
                 Console.WriteLine(i);
             }
-
-
+            
             // Introduzir os números
             ArrayList chosenKeys = new ArrayList();
 
@@ -168,11 +207,23 @@ namespace euromilhoes
                 } while (!Regex.IsMatch(input, pattern) || checkNum.Contains(input) == true);
                 checkNum.Add(input);
             }
+
+
+            genTicket();
+
+
             checkNif();
+
+            
+
+
+
+
 
             float aposta = 2.5f; //o ponto decimal nao pode ser virgula, tambem tem de declarar como literal
             float saldo = 100;
-            int qtd;
+            int qtd, choice;
+            
             Console.WriteLine("Quantas chaves quer jogar? ");
             do
             {
@@ -182,8 +233,17 @@ namespace euromilhoes
                 if (aposta > saldo)
                     Console.WriteLine("Não tem saldo suficiente! Tente outra vez");
                 else
+                {
+                    
                     break;
+                }
+                    
+
+                    
+                    
             } while (saldo > aposta);
+
+            
         }
     }
 }
