@@ -5,7 +5,7 @@ namespace euromilhoes
 	{
 		private string name;
 		private int nif;
-		private decimal balance;
+		private decimal balance = 100;
 
 
 	}
