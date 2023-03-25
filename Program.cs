@@ -1,5 +1,10 @@
-﻿using System.Numerics;
-using System.Runtime.CompilerServices;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace Euromilhoes
 {
@@ -10,8 +15,17 @@ namespace Euromilhoes
             Euromilhoes euromilhoes = new Euromilhoes();
 
             Player testPlayer = euromilhoes.createPlayer();
-            Console.WriteLine(testPlayer.ToString());
-
+            Player testPlayer2 = euromilhoes.createPlayer();
+            //Console.WriteLine(testPlayer.ToString());
+            
+            //Print bigplayerlist
+            foreach (Player player in euromilhoes.theBigPlayerList)
+            {
+                Console.WriteLine(player.ToString());
+            }
+            //export playerlist
+            euromilhoes.exportPlayerList();
+            
         }
     
         
