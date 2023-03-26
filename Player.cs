@@ -21,7 +21,6 @@ namespace Euromilhoes
         public Player()
         {
             name = "NewPlayer" + playerIncrement.ToString();
-            //generate a random 9 digit number for nif
             nif = random.Next(100000000, 999999999);
             saldo = 100;
             ownedTickets = new List<Ticket>();

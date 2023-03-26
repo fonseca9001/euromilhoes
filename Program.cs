@@ -15,16 +15,12 @@ namespace Euromilhoes
             Euromilhoes euromilhoes = new Euromilhoes();
 
             Player testPlayer = euromilhoes.createPlayer();
-            Player testPlayer2 = euromilhoes.createPlayer();
-            //Console.WriteLine(testPlayer.ToString());
             
-            //Print bigplayerlist
-            foreach (Player player in euromilhoes.theBigPlayerList)
-            {
-                Console.WriteLine(player.ToString());
-            }
-            //export playerlist
-            euromilhoes.exportPlayerList();
+            //print the players tickets
+            
+            
+
+            
             
         }
     
