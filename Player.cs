@@ -39,8 +39,6 @@ namespace Euromilhoes
             return "Player: " + name + "\nNIF: " + nif + "\nSaldo: " + saldo;
         }
 
-
-
         //Gets & Sets
         public string Name { get => name; set => name = value; }
         public int Nif { get => nif; set => nif = value; }

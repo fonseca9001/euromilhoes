@@ -10,7 +10,50 @@ namespace Euromilhoes
 {
     internal class Euromilhoes
     {
-        public List<Player> theBigPlayerList = new List<Player>();
+        private List<Player> theBigPlayerList;
+        private int prize;
+        private int numApostas;
+
+        public Euromilhoes()
+        {
+            this.theBigPlayerList = new List<Player>();
+            this.prize = 0;
+            this.numApostas = 0;
+        }
+
+        public void buyTicket(Player p)
+        {
+            Ticket newTicket = new Ticket();
+            HashSet<int> nums = new HashSet<int>();
+            HashSet<int> stars = new HashSet<int>();
+            p.saldo -= 2.5;
+
+            Console.WriteLine("Introduza os números do boletim: \n")
+            addToList(5, nums);
+            Console.WriteLine("Introduza as estrelas do boletim: \n")
+            addToList(2, stars);
+
+            //usar função set do tuple
+
+            p.ownedTickets.add(newTicket);
+            this.numApostas += 1;
+        }
+
+        public void resetPrize()
+        {
+            this.prize = 0;
+            this.numApostas = 0;
+        }
+
+        public void buildPrize()
+        {
+            for(int i = 0; i < numApostas; i++)
+            {
+                this.prize += 2.5;
+            }
+
+            this.prize *= 10
+        }
 
         public void exportPlayerList()
         {
@@ -18,7 +61,6 @@ namespace Euromilhoes
             File.WriteAllText("playerlist.json", json);
         }
         
-
         public Player createPlayer()
         {
             string name = "";
@@ -44,6 +86,16 @@ namespace Euromilhoes
             Player newPlayer = new Player(name, nif);
             this.theBigPlayerList.Add(newPlayer);
             return newPlayer;
+        }
+
+        private void addToList(int length, HashSet<int> list)
+        {
+            for(int i = 0; i < length; i++)
+            {
+                int input = int.Parse(Console.ReadLine());
+                list.add(input);
+                i++;
+            }
         }
     }
 }

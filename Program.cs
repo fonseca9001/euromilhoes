@@ -15,11 +15,9 @@ namespace Euromilhoes
             Euromilhoes euromilhoes = new Euromilhoes();
 
             Player testPlayer = euromilhoes.createPlayer();
-            
+            euromilhoes.buyTicket(testPlayer);
             //print the players tickets
             
-            
-
             
             
         }
