@@ -21,14 +21,16 @@ namespace Euromilhoes
         {
             this.ticketNums = new List<Tuple<HashSet<int>, HashSet<int>>>();
             this.ticketSerial = ticketIncrement;
-            this.ticketIncrement++;
+            ticketIncrement++;
+            
+            
         }
 
         public Ticket(List<Tuple<HashSet<int>, HashSet<int>>> ticketNums)
         {
             this.ticketNums = ticketNums;
             this.ticketSerial = ticketIncrement;
-            this.ticketIncrement++;
+            ticketIncrement++;
         }
 
         //Gets & Sets
@@ -42,7 +44,7 @@ namespace Euromilhoes
         {
             string ticketString = "Ticket: " + ticketSerial + "\n";
             ticketString += "Numbers: ";
-            foreach (HashSet<int> numbers in ticketNumbers)
+            foreach (HashSet<int> numbers in ticketNums)
             {
                 foreach (int number in numbers)
                 {

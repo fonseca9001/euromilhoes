@@ -11,8 +11,12 @@ namespace Euromilhoes
     internal class Euromilhoes
     {
         private List<Player> theBigPlayerList;
-        private int prize;
+        private decimal prize;
         private int numApostas;
+
+        internal List<Player> TheBigPlayerList { get => theBigPlayerList; set => theBigPlayerList = value; }
+        public decimal Prize { get => prize; set => prize = value; }
+        public int NumApostas { get => numApostas; set => numApostas = value; }
 
         public Euromilhoes()
         {
@@ -21,12 +25,43 @@ namespace Euromilhoes
             this.numApostas = 0;
         }
 
+    
+        public void randomTicket(Ticket t)
+        {
+            HashSet<int> nums = new HashSet<int>();
+            HashSet<int> stars = new HashSet<int>();
+            Random random = new Random();
+            for (int i = 0; i < 5; i++)
+            {
+                int num = random.Next(1, 51);
+                nums.Add(num);
+            }
+            for (int i = 0; i < 2; i++)
+            {
+                int star = random.Next(1, 13);
+                stars.Add(star);
+            }
+            //usar função set do tuple
+        }
+
+        public void fillTicket(Ticket t)
+        {
+            HashSet<int> nums = new HashSet<int>();
+            HashSet<int> stars = new HashSet<int>();
+            Console.WriteLine("Introduza os números do boletim: \n");
+            addToList(5, nums);
+            Console.WriteLine("Introduza as estrelas do boletim: \n");
+            addToList(2, stars);
+            //usar função set do tuple
+        }
+
+
         public void buyTicket(Player p)
         {
             Ticket newTicket = new Ticket();
             HashSet<int> nums = new HashSet<int>();
             HashSet<int> stars = new HashSet<int>();
-            p.saldo -= 2.5;
+            p.Saldo -= 2.5;
 
             Console.WriteLine("Introduza os números do boletim: \n")
             addToList(5, nums);
@@ -35,7 +70,7 @@ namespace Euromilhoes
 
             //usar função set do tuple
 
-            p.ownedTickets.add(newTicket);
+            p.OwnedTickets.Add(newTicket);
             this.numApostas += 1;
         }
 
@@ -52,7 +87,7 @@ namespace Euromilhoes
                 this.prize += 2.5;
             }
 
-            this.prize *= 10
+            this.prize *= 10;
         }
 
         public void exportPlayerList()
@@ -93,7 +128,7 @@ namespace Euromilhoes
             for(int i = 0; i < length; i++)
             {
                 int input = int.Parse(Console.ReadLine());
-                list.add(input);
+                list.Add(input);
                 i++;
             }
         }
