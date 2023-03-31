@@ -10,9 +10,8 @@ namespace Euromilhoes
 {
     internal class Ticket
     {
-        private HashSet<int> ticketNumbers { get; set; }
-        private HashSet<int> ticketStars { get; set; }
-        private Tuple<HashSet<int>, HashSet<int>> ticketBets { get; set; }
+        private HashSet<int> ticketNumbers;
+        private HashSet<int> ticketStars;
         private int ticketSerial;
         private static int ticketIncrement = 1;
         private Random random = new Random();
@@ -21,37 +20,38 @@ namespace Euromilhoes
 
         public Ticket()
         {
-            ticketNumbers = new HashSet<int>();
-            ticketStars = new HashSet<int>();
-            ticketBets = Tuple.Create(ticketNumbers, ticketStars);
-            ticketSerial = ticketIncrement++;
+            HashSet<int> ticketnumbers = new HashSet<int>() { 10, 20, 30, 40, 50 };
+            HashSet<int> ticketStars = new HashSet<int>() { 4, 8 };
+            ticketSerial = ticketIncrement;
+            ticketIncrement++;
         }
+        //Note that I've added `()` after `HashSet<int>` to instantiate the HashSet object and used curly braces to enclose the integer values inside.
 
-        public Ticket(Tuple <HashSet<int>, HashSet<int>> ticketBets)
+        public Ticket(HashSet<int> ticketNumbers, HashSet<int> ticketStars)
         {
-            this.ticketBets = ticketBets;
-            ticketSerial = ticketIncrement++;
+            this.ticketNumbers = ticketNumbers;
+            this.ticketStars = ticketStars;
+            ticketSerial = ticketIncrement;
+            ticketIncrement++;
         }
 
 
-        //fazer get do tuple
-        public int TicketSerial { get => ticketSerial; set => ticketSerial = value; }
-
-        //Methods
 
         public override string ToString()
         {
-            string ticketString = "Ticket: " + ticketSerial + "\n";
+            string ticketString = "Ticket nº: " + ticketSerial + "\n";
             ticketString += "Numbers: ";
-            foreach (int number in ticketNumbers)
+            foreach (int num in ticketNumbers)
             {
-                ticketString += number + " ";
+                ticketString += num + " ";
             }
             ticketString += "\nStars: ";
             foreach (int star in ticketStars)
             {
                 ticketString += star + " ";
             }
+            ticketString += "\n";
+
             return ticketString;
         }
     }

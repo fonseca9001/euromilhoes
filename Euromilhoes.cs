@@ -14,9 +14,21 @@ namespace Euromilhoes
         private decimal prize;
         private int numApostas;
 
+
+
+        int[] winNums = new int[5];
+        int[] winStars = new int[2];
+        int[] Unums = new int[5];
+        int[] Ustars = new int[2];
+
+
         internal List<Player> TheBigPlayerList { get => theBigPlayerList; set => theBigPlayerList = value; }
         public decimal Prize { get => prize; set => prize = value; }
         public int NumApostas { get => numApostas; set => numApostas = value; }
+        public int[] WinNums { get => winNums; set => winNums = value; }
+        public int[] WinStars { get => winStars; set => winStars = value; }
+        public int[] Unums1 { get => Unums; set => Unums = value; }
+        public int[] Ustars1 { get => Ustars; set => Ustars = value; }
 
         public Euromilhoes()
         {
@@ -25,8 +37,8 @@ namespace Euromilhoes
             this.numApostas = 0;
         }
 
-    
-        public void randomTicket(Ticket t)
+
+        public void randomTicket()
         {
             HashSet<int> nums = new HashSet<int>();
             HashSet<int> stars = new HashSet<int>();
@@ -41,7 +53,14 @@ namespace Euromilhoes
                 int star = random.Next(1, 13);
                 stars.Add(star);
             }
-            //usar função set do tuple
+            // return new Ticket(nums, stars);
+
+            ////////////////////////////////////
+            ///
+            winNums = nums.ToArray();
+            winStars = stars.ToArray();
+
+
         }
 
         public void fillTicket(Ticket t)
@@ -49,10 +68,12 @@ namespace Euromilhoes
             HashSet<int> nums = new HashSet<int>();
             HashSet<int> stars = new HashSet<int>();
             Console.WriteLine("Introduza os números do boletim: \n");
-            addToList(5, nums);
+            AddToList(5, nums);
             Console.WriteLine("Introduza as estrelas do boletim: \n");
-            addToList(2, stars);
-            //usar função set do tuple
+            AddToList(2, stars);
+
+            Unums = nums.ToArray();
+            Ustars = stars.ToArray();
         }
 
 
@@ -61,14 +82,13 @@ namespace Euromilhoes
             Ticket newTicket = new Ticket();
             HashSet<int> nums = new HashSet<int>();
             HashSet<int> stars = new HashSet<int>();
-            p.Saldo -= 2.5;
+            p.Saldo -= 2.5M;
 
-            Console.WriteLine("Introduza os números do boletim: \n")
-            addToList(5, nums);
-            Console.WriteLine("Introduza as estrelas do boletim: \n")
-            addToList(2, stars);
+            Console.WriteLine("Introduza os números do boletim: \n");
+            AddToList(5, nums);
+            Console.WriteLine("Introduza as estrelas do boletim: \n");
+            AddToList(2, stars);
 
-            //usar função set do tuple
 
             p.OwnedTickets.Add(newTicket);
             this.numApostas += 1;
@@ -82,9 +102,9 @@ namespace Euromilhoes
 
         public void buildPrize()
         {
-            for(int i = 0; i < numApostas; i++)
+            for (int i = 0; i < numApostas; i++)
             {
-                this.prize += 2.5;
+                this.prize += +2.5M;
             }
 
             this.prize *= 10;
@@ -95,7 +115,7 @@ namespace Euromilhoes
             string json = JsonConvert.SerializeObject(theBigPlayerList, Formatting.Indented);
             File.WriteAllText("playerlist.json", json);
         }
-        
+
         public Player createPlayer()
         {
             string name = "";
@@ -123,14 +143,28 @@ namespace Euromilhoes
             return newPlayer;
         }
 
-        private void addToList(int length, HashSet<int> list)
+        private void AddToList(int length, HashSet<int> list)
         {
-            for(int i = 0; i < length; i++)
+            int minValue = 1;
+            int maxValue = length == 5 ? 50 : 12;
+
+            for (int i = 1; i <= length; i++)
             {
+                Console.Write("Enter a number: ");
                 int input = int.Parse(Console.ReadLine());
-                list.Add(input);
-                i++;
+
+                if (input >= minValue && input <= maxValue && !list.Contains(input))
+                {
+                    list.Add(input);
+                }
+                else
+                {
+                    Console.WriteLine("Wrong or repeated numberino!");
+                    i--;
+                }
             }
         }
+
+
     }
 }

@@ -12,7 +12,7 @@ namespace Euromilhoes
     {
         private String name;
         private int nif;
-        private decimal saldo;
+        private decimal balance;
         private List<Ticket> ownedTickets;
         private static int playerIncrement = 1;
         private Random random = new Random();
@@ -22,29 +22,37 @@ namespace Euromilhoes
         {
             name = "NewPlayer" + playerIncrement.ToString();
             nif = random.Next(100000000, 999999999);
-            saldo = 100;
+            balance = 100;
             ownedTickets = new List<Ticket>();
             playerIncrement++;
         }
         public Player(string name, int nif)
         {
             this.name = name;
-            this.nif = nif;    
-            this.saldo = 100;
+            this.nif = nif;
+            this.balance = 100;
             ownedTickets = new List<Ticket>();
         }
 
         public override string ToString()
         {
-            return "Player: " + name + "\nNIF: " + nif + "\nSaldo: " + saldo;
+            return "Player: " + name + "\nNIF: " + nif + "\nSaldo: " + balance;
+        }
+
+        public void printTicketList()
+        {
+            for (int i = 0; i < ownedTickets.Count; i++)
+            {
+                Console.WriteLine(ownedTickets[i].ToString());
+            }
+
         }
 
         //Gets & Sets
         public string Name { get => name; set => name = value; }
         public int Nif { get => nif; set => nif = value; }
-        public decimal Saldo { get => saldo; set { if (value >= 0) this.saldo = value; } }
+        public decimal Saldo { get => balance; set { if (value >= 0) this.balance = value; } }
         public List<Ticket> OwnedTickets { get => ownedTickets; set => ownedTickets = value; }
-        
-        
+
     }
 }
