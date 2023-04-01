@@ -14,6 +14,8 @@ namespace Euromilhoes
         private HashSet<int> ticketStars;
         private int ticketSerial;
         private static int ticketIncrement = 1;
+        
+        private bool isValid;
         private Random random = new Random();
 
         //Constructors
@@ -21,22 +23,23 @@ namespace Euromilhoes
         public Ticket()
         {
             HashSet<int> ticketnumbers = new HashSet<int>() { 10, 20, 30, 40, 50 };
-            HashSet<int> ticketStars = new HashSet<int>() { 4, 8 };
+            HashSet<int> ticketStars = new HashSet<int>() {4,8};
             ticketSerial = ticketIncrement;
+            isValid = true;
             ticketIncrement++;
         }
-        //Note that I've added `()` after `HashSet<int>` to instantiate the HashSet object and used curly braces to enclose the integer values inside.
 
         public Ticket(HashSet<int> ticketNumbers, HashSet<int> ticketStars)
         {
             this.ticketNumbers = ticketNumbers;
             this.ticketStars = ticketStars;
+            this.isValid = true;
             ticketSerial = ticketIncrement;
             ticketIncrement++;
         }
 
 
-
+       
         public override string ToString()
         {
             string ticketString = "Ticket nº: " + ticketSerial + "\n";
@@ -54,5 +57,41 @@ namespace Euromilhoes
 
             return ticketString;
         }
+
+        public HashSet<int> GetTicketNumbers()
+        {
+            return this.ticketNumbers;
+        }
+        public HashSet<int> GetTicketStars()
+        {
+            return this.ticketStars;
+        }
+        public int GetTicketSerial()
+        {
+            return this.ticketSerial;
+        }
+
+        public bool GetIsValid()
+        {
+            return this.isValid;
+        }
+        public void SetTicketNumbers(HashSet<int> ticketNumbers)
+        {
+            this.ticketNumbers = ticketNumbers;
+        }
+        public void SetTicketStars(HashSet<int> ticketStars)
+        {
+            this.ticketStars = ticketStars;
+        }
+        public void SetTicketSerial(int ticketSerial)
+        {
+            this.ticketSerial = ticketSerial;
+        }
+
+        public void SetIsValid(bool isValid)
+        {
+            this.isValid = isValid;
+        }
+        
     }
 }
