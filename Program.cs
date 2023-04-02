@@ -252,9 +252,7 @@ namespace Euromilhoes
                 {
                     break;
                 }
-            }
-
-            
+            } 
         }
     }
 }
