@@ -50,7 +50,7 @@ namespace Euromilhoes
             {
                 Console.WriteLine(ticket);
             }
-            Console.WriteLine("Introduza o número de serie do boletim: \n");
+            Console.WriteLine("Introduza o número do boletim: \n");
             string ticketFileName = $"./tickets/{Console.ReadLine()}.txt";
             using (StreamReader reader = new StreamReader(ticketFileName))
             {
@@ -125,7 +125,7 @@ namespace Euromilhoes
                 }
                 else
                 {
-                    Console.WriteLine("Wrong or repeated numberino!");
+                    Console.WriteLine("Numero invalido ou já inserido");
                     i--;
                 }
             }
@@ -133,24 +133,24 @@ namespace Euromilhoes
 
         public void buyTicket(Player p, int ticketType) //isRandom = true -> random ticket, isRandom = false -> fill ticket
         {
-            Ticket newTicket = new Ticket();
+            Ticket t = new Ticket();
             p.Balance -= 2.5M;
             switch (ticketType)
             {
                 case 1:
-                    randomTicket(newTicket);
+                    randomTicket(t);
                     break;     
                 case 2:
-                    fillTicket(newTicket);
+                    fillTicket(t);
                     break;
                 case 3:
-                    TicketReader(newTicket);
+                    TicketReader(t);
                     break;
                 default:
-                    Console.WriteLine("Invalid option");
+                    Console.WriteLine("Opcao invalida");
                     break;
             }
-            p.OwnedTickets.Add(newTicket);
+            p.OwnedTickets.Add(t);
             this.numApostas += 1;
         }
 
@@ -164,7 +164,7 @@ namespace Euromilhoes
         {
             for (int i = 0; i < numApostas; i++)
             {
-                this.prize += +2.5M;
+                this.prize += 2.5M;
             }
         }
 
@@ -229,7 +229,30 @@ namespace Euromilhoes
 
         public void PassDay() {this.InitDate = this.InitDate.AddDays(1);}
 
-        public bool CheckPrize(int numbersMatch, int starsMatch){return numbersMatch == 5 && starsMatch == 2;}
+        public void CheckPrize(int numbersMatch, int starsMatch, Player p, bool winner)
+        {
+            switch((numbersMatch, starsMatch))
+            {
+                case (5, 2):
+                    p.Balance += this.prize * 10;
+                    winner = true;
+                    Console.WriteLine($"Parabens {p.Name}, ganhou o jackpot");
+                    break;
+                case (5, 1):
+                    p.Balance += this.prize * 10 * 0.95M;
+                    winner = true;
+                    Console.WriteLine($"Parabens {p.Name}, ganhou o 2º premio");
+                    break;
+                case (5, 0):
+                    p.Balance += this.prize * 10 * 0.90M;
+                    winner = true;
+                    Console.WriteLine($"Parabens {p.Name}, ganhou o 3º premio");
+                    break;
+                default:
+                    Console.WriteLine($"No chicken dinner for you {p.Name}");
+                    break;
+            }
+        }
 
         public Player ImportPlayer()
         {
