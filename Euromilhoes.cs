@@ -243,29 +243,11 @@ namespace Euromilhoes
         }
 
 
-        public bool IsItFridayYet()
-        {
-            if (this.initDate.DayOfWeek == DayOfWeek.Friday)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        public bool IsItFridayYet(){return this.initDate.DayOfWeek == DayOfWeek.Friday;}
 
-        public void PassDay()
-        {
-            this.InitDate = this.InitDate.AddDays(1);
-        }
+        public void PassDay() {this.InitDate = this.InitDate.AddDays(1);}
 
-        public bool CheckPrize(int numbersMatch, int starsMatch)
-        {
-            if (numbersMatch == 5 && starsMatch == 2) { return true; }
-            else { return false; }
-        }
-
+        public bool CheckPrize(int numbersMatch, int starsMatch){return numbersMatch == 5 && starsMatch == 2;}
 
         public Player ImportPlayer()
         {
