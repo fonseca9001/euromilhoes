@@ -39,8 +39,6 @@ namespace Euromilhoes
             ticketIncrement++;
         }
 
-
-
         public override string ToString()
         {
             string ticketString = "Ticket nº: ";
@@ -73,10 +71,12 @@ namespace Euromilhoes
         {
             return this.ticketNumbers;
         }
+
         public HashSet<int> GetTicketStars()
         {
             return this.ticketStars;
         }
+
         public int GetTicketSerial()
         {
             return this.ticketSerial;
@@ -86,14 +86,17 @@ namespace Euromilhoes
         {
             return this.isValid;
         }
+
         public void SetTicketNumbers(HashSet<int> ticketNumbers)
         {
             this.ticketNumbers = ticketNumbers;
         }
+
         public void SetTicketStars(HashSet<int> ticketStars)
         {
             this.ticketStars = ticketStars;
         }
+
         public void SetTicketSerial(int ticketSerial)
         {
             this.ticketSerial = ticketSerial;
@@ -103,6 +106,5 @@ namespace Euromilhoes
         {
             this.isValid = isValid;
         }
-
     }
 }

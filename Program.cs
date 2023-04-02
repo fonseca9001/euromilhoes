@@ -56,7 +56,6 @@ namespace Euromilhoes
         {
             while (!quit)
             {
-                
                 Console.WriteLine("\n" + p.ToString() + "\n");
                 PrintMainMenu(game);
                 int option = int.Parse(Console.ReadLine());
@@ -98,7 +97,9 @@ namespace Euromilhoes
         private static void Aposta(Player p, Euromilhoes game)
         {
             Ticket t = new Ticket();
-            Console.WriteLine("1 - Gerar boletim aleatorio\n 2 - Introduzir boletim manualmente\n 3- Importar chaves");
+            Console.WriteLine(
+                "1 - Gerar boletim aleatorio\n 2 - Introduzir boletim manualmente\n 3- Importar chaves"
+            );
             int option = int.Parse(Console.ReadLine());
             switch (option)
             {
@@ -115,7 +116,6 @@ namespace Euromilhoes
                     Console.WriteLine("Opcao invalida");
                     break;
             }
-
         }
 
         private static void Sorteio(List<Player> pl, Euromilhoes game)

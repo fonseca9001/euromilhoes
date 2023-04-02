@@ -25,6 +25,7 @@ namespace Euromilhoes
             ownedTickets = new List<Ticket>();
             playerIncrement++;
         }
+
         public Player(string name, int nif)
         {
             this.name = name;
@@ -35,7 +36,12 @@ namespace Euromilhoes
 
         public override string ToString()
         {
-            return "Player: " + name + "\nNIF: " + nif + "\nSaldo: " + string.Format("{0:0.00}", balance);
+            return "Player: "
+                + name
+                + "\nNIF: "
+                + nif
+                + "\nSaldo: "
+                + string.Format("{0:0.00}", balance);
         }
 
         public void PrintTicketList()
@@ -47,10 +53,29 @@ namespace Euromilhoes
         }
 
         //Gets & Sets
-        public string Name { get => name; set => name = value; }
-        public int Nif { get => nif; set => nif = value; }
-        public decimal Balance { get => balance; set { if (value >= 0) this.balance = value; } }
-        public List<Ticket> OwnedTickets { get => ownedTickets; set => ownedTickets = value; }
-
+        public string Name
+        {
+            get => name;
+            set => name = value;
+        }
+        public int Nif
+        {
+            get => nif;
+            set => nif = value;
+        }
+        public decimal Balance
+        {
+            get => balance;
+            set
+            {
+                if (value >= 0)
+                    this.balance = value;
+            }
+        }
+        public List<Ticket> OwnedTickets
+        {
+            get => ownedTickets;
+            set => ownedTickets = value;
+        }
     }
 }
