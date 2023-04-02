@@ -16,10 +16,26 @@ namespace Euromilhoes
         private int numApostas;
         private DateTime initDate = DateTime.Now.Date;
 
-        internal List<Player> TheBigPlayerList { get => theBigPlayerList; set => theBigPlayerList = value; }
-        public decimal Prize { get => prize; set => prize = value; }
-        public int NumApostas { get => numApostas; set => numApostas = value; }
-        public DateTime InitDate { get => initDate; set => initDate = value; }
+        internal List<Player> TheBigPlayerList
+        {
+            get => theBigPlayerList;
+            set => theBigPlayerList = value;
+        }
+        public decimal Prize
+        {
+            get => prize;
+            set => prize = value;
+        }
+        public int NumApostas
+        {
+            get => numApostas;
+            set => numApostas = value;
+        }
+        public DateTime InitDate
+        {
+            get => initDate;
+            set => initDate = value;
+        }
 
         public Euromilhoes()
         {
@@ -28,13 +44,13 @@ namespace Euromilhoes
             this.numApostas = 0;
         }
 
-        public void TicketWriter(Ticket t) 
+        public void TicketWriter(Ticket t)
         {
             if (!Directory.Exists("./tickets"))
             {
                 Directory.CreateDirectory("./tickets");
             }
-            string ticketFileName = $"./tickets/{t.GetTicketSerial()}.txt"; 
+            string ticketFileName = $"./tickets/{t.GetTicketSerial()}.txt";
             using (StreamWriter writer = new StreamWriter(ticketFileName))
             {
                 writer.WriteLine(string.Join(",", t.GetTicketNumbers()));
@@ -42,7 +58,7 @@ namespace Euromilhoes
             }
         }
 
-        public void TicketReader(Ticket t) 
+        public void TicketReader(Ticket t)
         {
             Console.WriteLine("Boletins disponiveis: \n");
             string[] tickets = Directory.GetFiles("./tickets");
@@ -71,20 +87,19 @@ namespace Euromilhoes
                 }
                 t.SetTicketStars(ticketStars);
             }
-
         }
 
-        public void randomTicket(Ticket t) 
+        public void randomTicket(Ticket t)
         {
             HashSet<int> nums = new HashSet<int>();
             HashSet<int> stars = new HashSet<int>();
             Random random = new Random();
-            while (nums.Count < 5) 
+            while (nums.Count < 5)
             {
                 int num = random.Next(1, 51);
                 nums.Add(num);
             }
-            while (stars.Count < 2) 
+            while (stars.Count < 2)
             {
                 int star = random.Next(1, 13);
                 stars.Add(star);
@@ -92,7 +107,7 @@ namespace Euromilhoes
             t.SetTicketNumbers(nums);
             t.SetTicketStars(stars);
 
-            TicketWriter(t); 
+            TicketWriter(t);
         }
 
         private void fillTicket(Ticket t)
@@ -139,7 +154,7 @@ namespace Euromilhoes
             {
                 case 1:
                     randomTicket(newTicket);
-                    break;     
+                    break;
                 case 2:
                     fillTicket(newTicket);
                     break;
@@ -225,11 +240,20 @@ namespace Euromilhoes
             }
         }
 
-        public bool IsItFridayYet(){return this.initDate.DayOfWeek == DayOfWeek.Friday;}
+        public bool IsItFridayYet()
+        {
+            return this.initDate.DayOfWeek == DayOfWeek.Friday;
+        }
 
-        public void PassDay() {this.InitDate = this.InitDate.AddDays(1);}
+        public void PassDay()
+        {
+            this.InitDate = this.InitDate.AddDays(1);
+        }
 
-        public bool CheckPrize(int numbersMatch, int starsMatch){return numbersMatch == 5 && starsMatch == 2;}
+        public bool CheckPrize(int numbersMatch, int starsMatch)
+        {
+            return numbersMatch == 5 && starsMatch == 2;
+        }
 
         public Player ImportPlayer()
         {
