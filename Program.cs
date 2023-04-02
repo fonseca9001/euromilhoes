@@ -111,6 +111,7 @@ namespace Euromilhoes
                     break;
                 case 3:
                     game.buyTicket(p, 3);
+                    break;
                 default:
                     Console.WriteLine("Opcao invalida");
                     break;

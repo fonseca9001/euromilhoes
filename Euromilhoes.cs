@@ -41,7 +41,7 @@ namespace Euromilhoes
             {
                 Directory.CreateDirectory("./tickets");
             }
-            string ticketFileName = $"./tickets/{t.TicketSerial}.txt"; // variable name should match the one used below
+            string ticketFileName = $"./tickets/{t.GetTicketSerial()}.txt"; // variable name should match the one used below
             using (StreamWriter writer = new StreamWriter(ticketFileName))
             {
                 writer.WriteLine(string.Join(",", t.GetTicketNumbers())); // "t.nums" should be replaced with "t.GetTicketNumbers()"
@@ -51,6 +51,13 @@ namespace Euromilhoes
 
         public void TicketReader(Ticket t) // "TicketReader" should start with a capital letter
         {
+            //list tickets in directory
+            Console.WriteLine("Boletins disponiveis: \n");
+            string[] tickets = Directory.GetFiles("./tickets");
+            foreach (string ticket in tickets)
+            {
+                Console.WriteLine(ticket);
+            }
             Console.WriteLine("Introduza o número de serie do boletim: \n");
             string ticketFileName = $"./tickets/{Console.ReadLine()}.txt";
             using (StreamReader reader = new StreamReader(ticketFileName))
