@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Euromilhoes
 {
@@ -14,7 +15,7 @@ namespace Euromilhoes
         private HashSet<int> ticketStars;
         private int ticketSerial;
         private static int ticketIncrement = 1;
-        
+
         private bool isValid;
         private Random random = new Random();
 
@@ -23,7 +24,7 @@ namespace Euromilhoes
         public Ticket()
         {
             HashSet<int> ticketnumbers = new HashSet<int>() { 10, 20, 30, 40, 50 };
-            HashSet<int> ticketStars = new HashSet<int>() {4,8};
+            HashSet<int> ticketStars = new HashSet<int>() { 4, 8 };
             ticketSerial = ticketIncrement;
             isValid = true;
             ticketIncrement++;
@@ -34,24 +35,34 @@ namespace Euromilhoes
             this.ticketNumbers = ticketNumbers;
             this.ticketStars = ticketStars;
             this.isValid = true;
-            ticketSerial = ticketIncrement;
+            this.ticketSerial = ticketIncrement;
             ticketIncrement++;
         }
 
 
-       
+
         public override string ToString()
         {
-            string ticketString = "Ticket nº: " + ticketSerial + "\n";
-            ticketString += "Numbers: ";
-            foreach (int num in ticketNumbers)
+            string ticketString = "Ticket nº: ";
+            if (ticketSerial != null)
             {
-                ticketString += num + " ";
+                ticketString += ticketSerial;
+            }
+            ticketString += "\nNumbers: ";
+            if (ticketNumbers != null)
+            {
+                foreach (int num in ticketNumbers)
+                {
+                    ticketString += num + " ";
+                }
             }
             ticketString += "\nStars: ";
-            foreach (int star in ticketStars)
+            if (ticketStars != null)
             {
-                ticketString += star + " ";
+                foreach (int star in ticketStars)
+                {
+                    ticketString += star + " ";
+                }
             }
             ticketString += "\n";
 
@@ -92,6 +103,6 @@ namespace Euromilhoes
         {
             this.isValid = isValid;
         }
-        
+
     }
 }
