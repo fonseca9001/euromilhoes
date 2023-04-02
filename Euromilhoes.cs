@@ -11,20 +11,15 @@ namespace Euromilhoes
 {
     internal class Euromilhoes
     {
-
         private List<Player> theBigPlayerList;
         private decimal prize;
         private int numApostas;
-        //private bool maxApostas = false;
         private DateTime initDate = DateTime.Now.Date;
-
 
         internal List<Player> TheBigPlayerList { get => theBigPlayerList; set => theBigPlayerList = value; }
         public decimal Prize { get => prize; set => prize = value; }
         public int NumApostas { get => numApostas; set => numApostas = value; }
         public DateTime InitDate { get => initDate; set => initDate = value; }
-        //public bool MaxApostas { get => maxApostas; set => maxApostas = value; }
-
 
         public Euromilhoes()
         {
@@ -33,25 +28,22 @@ namespace Euromilhoes
             this.numApostas = 0;
         }
 
-        //Ticket Stuff
-
-        public void TicketWriter(Ticket t) // "TicketWriter" should start with a capital letter
+        public void TicketWriter(Ticket t) 
         {
             if (!Directory.Exists("./tickets"))
             {
                 Directory.CreateDirectory("./tickets");
             }
-            string ticketFileName = $"./tickets/{t.GetTicketSerial()}.txt"; // variable name should match the one used below
+            string ticketFileName = $"./tickets/{t.GetTicketSerial()}.txt"; 
             using (StreamWriter writer = new StreamWriter(ticketFileName))
             {
-                writer.WriteLine(string.Join(",", t.GetTicketNumbers())); // "t.nums" should be replaced with "t.GetTicketNumbers()"
-                writer.WriteLine(string.Join(",", t.GetTicketStars())); // "t.stars" should be replaced with "t.GetTicketStars()"
+                writer.WriteLine(string.Join(",", t.GetTicketNumbers()));
+                writer.WriteLine(string.Join(",", t.GetTicketStars()));
             }
         }
 
-        public void TicketReader(Ticket t) // "TicketReader" should start with a capital letter
+        public void TicketReader(Ticket t) 
         {
-            //list tickets in directory
             Console.WriteLine("Boletins disponiveis: \n");
             string[] tickets = Directory.GetFiles("./tickets");
             foreach (string ticket in tickets)
@@ -81,17 +73,18 @@ namespace Euromilhoes
             }
 
         }
-        public void randomTicket(Ticket t) // "RandomTicket" should start with a capital letter
+
+        public void randomTicket(Ticket t) 
         {
             HashSet<int> nums = new HashSet<int>();
             HashSet<int> stars = new HashSet<int>();
             Random random = new Random();
-            while (nums.Count < 5) // fixed the loop to ensure that there are always 5 numbers in the set
+            while (nums.Count < 5) 
             {
                 int num = random.Next(1, 51);
                 nums.Add(num);
             }
-            while (stars.Count < 2) // fixed the loop to ensure that there are always 2 stars in the set
+            while (stars.Count < 2) 
             {
                 int star = random.Next(1, 13);
                 stars.Add(star);
@@ -99,9 +92,8 @@ namespace Euromilhoes
             t.SetTicketNumbers(nums);
             t.SetTicketStars(stars);
 
-            TicketWriter(t); // fixed the method name to match the corrected name above
+            TicketWriter(t); 
         }
-
 
         private void fillTicket(Ticket t)
         {
@@ -115,11 +107,7 @@ namespace Euromilhoes
             t.SetTicketStars(stars);
 
             TicketWriter(t);
-
-            // Write nums and stars to file create folder if it doesn't exist
-
         }
-
 
         private void AddToList(int length, HashSet<int> list)
         {
@@ -166,8 +154,6 @@ namespace Euromilhoes
             this.numApostas += 1;
         }
 
-
-
         public void resetPrize()
         {
             this.prize = 0;
@@ -180,8 +166,6 @@ namespace Euromilhoes
             {
                 this.prize += +2.5M;
             }
-
-            //this.prize *= 10;
         }
 
         public void exportBigPlayerList()
@@ -223,7 +207,6 @@ namespace Euromilhoes
             return newPlayer;
         }
 
-
         public int MatchCount(Ticket t, Ticket winT, bool isNumber) //pass nums with true, stars with false
         {
             HashSet<int> commons;
@@ -242,7 +225,6 @@ namespace Euromilhoes
             }
         }
 
-
         public bool IsItFridayYet(){return this.initDate.DayOfWeek == DayOfWeek.Friday;}
 
         public void PassDay() {this.InitDate = this.InitDate.AddDays(1);}
@@ -253,12 +235,9 @@ namespace Euromilhoes
         {
             Console.WriteLine("Introduza o nome do jogador para importar: ");
             string pname = Console.ReadLine();
-            //find player in file
             string path = @".\BigPlayerList.txt";
             string[] lines = File.ReadAllLines(path);
-            //import player from file
             Player player = new Player();
-
 
             return player;
         }
@@ -285,6 +264,5 @@ namespace Euromilhoes
                 }
             }
         }
-
     }
 }
