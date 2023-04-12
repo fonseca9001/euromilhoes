@@ -16,26 +16,10 @@ namespace Euromilhoes
         private int numApostas;
         private DateTime initDate = DateTime.Now.Date;
 
-        internal List<Player> TheBigPlayerList
-        {
-            get => theBigPlayerList;
-            set => theBigPlayerList = value;
-        }
-        public decimal Prize
-        {
-            get => prize;
-            set => prize = value;
-        }
-        public int NumApostas
-        {
-            get => numApostas;
-            set => numApostas = value;
-        }
-        public DateTime InitDate
-        {
-            get => initDate;
-            set => initDate = value;
-        }
+        internal List<Player> TheBigPlayerList { get => theBigPlayerList; set => theBigPlayerList = value; }
+        public decimal Prize { get => prize; set => prize = value; }
+        public int NumApostas { get => numApostas; set => numApostas = value; }
+        public DateTime InitDate { get => initDate; set => initDate = value; }
 
         public Euromilhoes()
         {
@@ -44,13 +28,13 @@ namespace Euromilhoes
             this.numApostas = 0;
         }
 
-        public void TicketWriter(Ticket t)
+        public void TicketWriter(Ticket t) 
         {
             if (!Directory.Exists("./tickets"))
             {
                 Directory.CreateDirectory("./tickets");
             }
-            string ticketFileName = $"./tickets/{t.GetTicketSerial()}.txt";
+            string ticketFileName = $"./tickets/{t.GetTicketSerial()}.txt"; 
             using (StreamWriter writer = new StreamWriter(ticketFileName))
             {
                 writer.WriteLine(string.Join(",", t.GetTicketNumbers()));
@@ -58,7 +42,7 @@ namespace Euromilhoes
             }
         }
 
-        public void TicketReader(Ticket t)
+        public void TicketReader(Ticket t) 
         {
             Console.WriteLine("Boletins disponiveis: \n");
             string[] tickets = Directory.GetFiles("./tickets");
@@ -66,7 +50,7 @@ namespace Euromilhoes
             {
                 Console.WriteLine(ticket);
             }
-            Console.WriteLine("Introduza o número do boletim: \n");
+            Console.WriteLine("Introduza o número de serie do boletim: \n");
             string ticketFileName = $"./tickets/{Console.ReadLine()}.txt";
             using (StreamReader reader = new StreamReader(ticketFileName))
             {
@@ -87,19 +71,20 @@ namespace Euromilhoes
                 }
                 t.SetTicketStars(ticketStars);
             }
+
         }
 
-        public void randomTicket(Ticket t)
+        public void randomTicket(Ticket t) 
         {
             HashSet<int> nums = new HashSet<int>();
             HashSet<int> stars = new HashSet<int>();
             Random random = new Random();
-            while (nums.Count < 5)
+            while (nums.Count < 5) 
             {
                 int num = random.Next(1, 51);
                 nums.Add(num);
             }
-            while (stars.Count < 2)
+            while (stars.Count < 2) 
             {
                 int star = random.Next(1, 13);
                 stars.Add(star);
@@ -107,7 +92,7 @@ namespace Euromilhoes
             t.SetTicketNumbers(nums);
             t.SetTicketStars(stars);
 
-            TicketWriter(t);
+            TicketWriter(t); 
         }
 
         private void fillTicket(Ticket t)
@@ -140,7 +125,7 @@ namespace Euromilhoes
                 }
                 else
                 {
-                    Console.WriteLine("Numero invalido ou já inserido");
+                    Console.WriteLine("Wrong or repeated numberino!");
                     i--;
                 }
             }
@@ -148,24 +133,24 @@ namespace Euromilhoes
 
         public void buyTicket(Player p, int ticketType) //isRandom = true -> random ticket, isRandom = false -> fill ticket
         {
-            Ticket t = new Ticket();
+            Ticket newTicket = new Ticket();
             p.Balance -= 2.5M;
             switch (ticketType)
             {
                 case 1:
-                    randomTicket(t);
-                    break;
+                    randomTicket(newTicket);
+                    break;     
                 case 2:
-                    fillTicket(t);
+                    fillTicket(newTicket);
                     break;
                 case 3:
-                    TicketReader(t);
+                    TicketReader(newTicket);
                     break;
                 default:
-                    Console.WriteLine("Opcao invalida");
+                    Console.WriteLine("Invalid option");
                     break;
             }
-            p.OwnedTickets.Add(t);
+            p.OwnedTickets.Add(newTicket);
             this.numApostas += 1;
         }
 
@@ -179,7 +164,7 @@ namespace Euromilhoes
         {
             for (int i = 0; i < numApostas; i++)
             {
-                this.prize += 2.5M;
+                this.prize += +2.5M;
             }
         }
 
@@ -240,40 +225,11 @@ namespace Euromilhoes
             }
         }
 
-        public bool IsItFridayYet()
-        {
-            return this.initDate.DayOfWeek == DayOfWeek.Friday;
-        }
+        public bool IsItFridayYet(){return this.initDate.DayOfWeek == DayOfWeek.Friday;}
 
-        public void PassDay()
-        {
-            this.InitDate = this.InitDate.AddDays(1);
-        }
+        public void PassDay() {this.InitDate = this.InitDate.AddDays(1);}
 
-        public void CheckPrize(int numbersMatch, int starsMatch, Player p, bool winner)
-        {
-            switch((numbersMatch, starsMatch))
-            {
-                case (5, 2):
-                    p.Balance += this.prize * 10;
-                    winner = true;
-                    Console.WriteLine($"Parabens {p.Name}, ganhou o jackpot");
-                    break;
-                case (5, 1):
-                    p.Balance += this.prize * 10 * 0.95M;
-                    winner = true;
-                    Console.WriteLine($"Parabens {p.Name}, ganhou o 2º premio");
-                    break;
-                case (5, 0):
-                    p.Balance += this.prize * 10 * 0.90M;
-                    winner = true;
-                    Console.WriteLine($"Parabens {p.Name}, ganhou o 3º premio");
-                    break;
-                default:
-                    Console.WriteLine($"No chicken dinner for you {p.Name}");
-                    break;
-            }
-        }
+        public bool CheckPrize(int numbersMatch, int starsMatch){return numbersMatch == 5 && starsMatch == 2;}
 
         public Player ImportPlayer()
         {
