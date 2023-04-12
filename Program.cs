@@ -17,9 +17,8 @@ namespace Euromilhoes
 
             PrintLogo();
             menuStuff(game, p, quit);
-            
 
-
+            System.Environment.Exit(0);
         }
 
         private static void PrintLogo()
@@ -31,7 +30,7 @@ namespace Euromilhoes
         private static void PrintMainMenu(Euromilhoes game)
         {
             //print todays date
-            Console.WriteLine("Today is " + game.InitDate.ToString("dd/MM/yyyy") + "\n");
+            Console.WriteLine("Hoje é dia " + game.InitDate.ToString("dd/MM/yyyy") + "\n");
             Console.WriteLine("1 - Apostar");
             Console.WriteLine("2 - Importar");
             Console.WriteLine("3 - Procurar");
@@ -57,7 +56,6 @@ namespace Euromilhoes
         {
             while (!quit)
             {
-                
                 Console.WriteLine("\n" + p.ToString() + "\n");
                 PrintMainMenu(game);
                 int option = int.Parse(Console.ReadLine());
@@ -65,7 +63,7 @@ namespace Euromilhoes
                 {
                     case 1:
                         if (p.Balance >= 2.5M) Aposta(p, game);
-                        else Console.WriteLine("Não tem saldo suficiente para apostar");
+                        else Console.WriteLine("Não tem saldo suficiente para apostar.\n Por favor pressione Alt+f4.");
                         break;
                     case 2:
                         Console.WriteLine("Under construction...");
@@ -99,7 +97,9 @@ namespace Euromilhoes
         private static void Aposta(Player p, Euromilhoes game)
         {
             Ticket t = new Ticket();
-            Console.WriteLine("1 - Gerar boletim aleatorio\n 2 - Introduzir boletim manualmente\n 3- Importar chaves");
+            Console.WriteLine(
+                "1 - Gerar boletim aleatorio\n 2 - Introduzir boletim manualmente\n 3- Importar chaves"
+            );
             int option = int.Parse(Console.ReadLine());
             switch (option)
             {
@@ -116,11 +116,7 @@ namespace Euromilhoes
                     Console.WriteLine("Opcao invalida");
                     break;
             }
-
         }
-
-
-
 
         private static void Sorteio(List<Player> pl, Euromilhoes game)
         {
@@ -137,122 +133,16 @@ namespace Euromilhoes
                 Console.Clear();
                 foreach (Ticket t in p.OwnedTickets)
                 {
-                    /*int */nums = game.MatchCount(t, winningTicket, true);
-                    /*int */stars = game.MatchCount(t, winningTicket, false);
-
-                    // Para ver se as variaveis estavam a contar
-                    Console.WriteLine($"Nums: {nums}\nEstrelas: {stars}");
-
-                    if (game.CheckPrize(nums, stars))
-                    {
-                        p.Balance += (game.Prize * 10);
-                        winner = true;
-                        Console.WriteLine("Ganhou!!!");
-                        break;
-                    }
-                    else if (nums == 5 && stars == 1)
-                    {
-                        Console.WriteLine($"Acertou em {nums} numeros e {stars} estrelas");
-                        p.Balance += (0.90M * game.Prize);
-                        break;
-                    }
-                    else if (nums == 5 && stars == 0)
-                    {
-                        
-                        Console.WriteLine($"Acertou em {nums} numeros e {stars} estrelas");
-                        p.Balance += (0.80M * game.Prize);
-                        break;
-                    }
-                    else if (nums == 4 && stars == 2)
-                    {
-                        Console.WriteLine($"Acertou em {nums} numeros e {stars} estrelas");
-                        p.Balance += (0.85M * game.Prize);
-                        break;
-                    }
-                    else if (nums == 4 && stars == 1)
-                    {
-                        Console.WriteLine($"Acertou em {nums} numeros e {stars} estrelas");
-                        p.Balance += (0.70M * game.Prize);
-                        break;
-                    }
-                    else if (nums == 4 && stars == 0)
-                    {
-                        Console.WriteLine($"Acertou em {nums} numeros e {stars} estrelas");
-                        p.Balance += (0.65M * game.Prize);
-                        break;
-                    }
-                    else if (nums == 3 && stars == 2)
-                    {
-                        Console.WriteLine($"Acertou em {nums} numeros e {stars} estrelas");
-                        p.Balance += (0.60M * game.Prize);
-                        break;
-                    }
-                    else if (nums == 3 && stars == 1)
-                    {
-                        Console.WriteLine($"Acertou em {nums} numeros e {stars} estrelas");
-                        p.Balance += (0.50M * game.Prize);
-                        break;
-                    }
-                    else if (nums == 3 && stars == 0)
-                    {
-                        Console.WriteLine($"Acertou em {nums} numeros e {stars} estrelas");
-                        p.Balance += (0.20M * game.Prize);
-                        break;
-                    }
-                    else if (nums == 2 && stars == 2)
-                    {
-                        Console.WriteLine($"Acertou em {nums} numeros e {stars} estrelas");
-                        p.Balance += (0.25M * game.Prize);
-                        break;
-                    }
-                    else if (nums == 2 && stars == 1)
-                    {
-                        Console.WriteLine($"Acertou em {nums} numeros e {stars} estrelas");
-                        p.Balance += (0.15M * game.Prize);
-                        break;
-                    }
-                    else if (nums == 2 && stars == 0)
-                    {
-                        Console.WriteLine($"Acertou em {nums} numeros e {stars} estrelas");
-                        p.Balance += (0.03M * game.Prize);
-
-                        break;
-                    }
-                    else if (nums == 1 && stars == 2)
-                    {
-                        Console.WriteLine($"Acertou em {nums} numeros e {stars} estrelas");
-                        p.Balance += (0.05M * game.Prize);
-                        break;
-                    }
-                    else if (nums == 1 && stars == 1)
-                    {
-                        Console.WriteLine($"Acertou em {nums} numeros e {stars} estrelas");
-                        p.Balance += (0.2M * game.Prize);
-                        break;
-                    }
-                    else if (nums == 1 && stars == 0)
-                    {
-                        Console.WriteLine($"Apenas acertou {nums} numero");
-                        break;
-                    }
-                    else if (nums == 0 && stars == 1)
-                    {
-                        Console.WriteLine($"Apenas acertou {stars} estrela");
-                        break;
-                    }
-                    else if (nums == 0 && stars == 2)
-                    {
-                        Console.WriteLine($"Apenas acertou em {stars} estrelas.");
-                        break;
-                    }
-                    else
-                        Console.WriteLine("Não acertou nada");
+                    nums = game.MatchCount(t, winningTicket, true);
+                    stars = game.MatchCount(t, winningTicket, false);
+                    game.CheckPrize(nums, stars, p, winner);
+                    if (winner) break;  
                 }
-                if (winner)
-                {
-                    break;
-                }
-            } 
+                if (winner) break;
+                
+            }
+                Console.WriteLine("Prima qualquer tecla para continuar.");
+                Console.ReadKey(); 
         }
     }
 }
